@@ -1,12 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Container } from "./styles";
 
-export function Trans(){
+interface TransProps{
+    id:number;
+    title: string;
+    amount: number
+    type:string;
+    category: string;
+    createdAt: string;
+}
 
+export function Trans(){
+    const [trans,setTrans] = useState<TransProps[]>([])
     useEffect( () =>{
-        api.get('/trans')
-        .then(response => console.log(response.data));
+        api.get('trans')
+        .then(response => setTrans(response.data.trans));
         
     }, []);
 
@@ -23,18 +32,23 @@ export function Trans(){
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td >Desenvolvimento de website</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Aluguel</td>
-                        <td className="withdraw">- R$ 1.100</td>
-                        <td>Casa</td>
-                        <td>17/02/2021</td>
-                    </tr>
+                   {trans.map(t => {
+                       return(
+                        <tr key={t.id}>
+                        <td >{t.title}</td>
+                        <td className={t.type}>
+                            {new Intl.NumberFormat('pt-BR', {
+                                style:'currency',
+                                currency: 'BRL'
+                            }).format(t.amount)}
+                            </td>
+                        <td>{t.category}</td>
+                        <td> 
+                            {new Intl.DateTimeFormat('pt-BR').format(
+                               new Date(t.amount))}</td>
+                      </tr>
+                       )
+                   })}
                 </tbody>
             </table>
         </Container>
