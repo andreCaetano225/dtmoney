@@ -1,6 +1,15 @@
+import { useEffect } from "react";
+import { api } from "../../services/api";
 import { Container } from "./styles";
 
 export function Trans(){
+
+    useEffect( () =>{
+        api.get('/trans')
+        .then(response => console.log(response.data));
+        
+    }, []);
+
     return(
         <Container>
             <table>

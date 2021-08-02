@@ -2,12 +2,28 @@ import React from 'react';
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 import { Global } from './styles/global';
+import { useState } from 'react';
+import Modal from 'react-modal'
+import { NewTransModal } from './components/NewTransModal';
+
+Modal.setAppElement('#root')
 
 export function App() {
+  const [isNewTransModalOpen,setIsNewTransModalOpen] = useState(false);
+
+  function handleOpenNewTransModal (){
+      setIsNewTransModalOpen(true);
+  }
+
+  function handleCloseNewTransModal (){
+      setIsNewTransModalOpen(false);
+  }
+
   return (
     <>
-    <Header/>
+    <Header onOpenNewTrans={handleOpenNewTransModal}/>
     <Dashboard/>
+   <NewTransModal isOpenModal={isNewTransModalOpen} handleCloseModal={handleCloseNewTransModal}/>
     <Global/>
     </>
   );
