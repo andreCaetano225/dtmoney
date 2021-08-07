@@ -1,23 +1,13 @@
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { useContext, } from "react";
+import { TransContext } from "../../TransContext";
 import { Container } from "./styles";
 
-interface TransProps{
-    id:number;
-    title: string;
-    amount: number
-    type:string;
-    category: string;
-    createdAt: string;
-}
+
 
 export function Trans(){
-    const [trans,setTrans] = useState<TransProps[]>([])
-    useEffect( () =>{
-        api.get('trans')
-        .then(response => setTrans(response.data.trans));
-        
-    }, []);
+    const { trans} = useContext(TransContext);
+
+
 
     return(
         <Container>

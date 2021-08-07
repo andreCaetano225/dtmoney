@@ -5,11 +5,13 @@ import { Global } from './styles/global';
 import { useState } from 'react';
 import Modal from 'react-modal'
 import { NewTransModal } from './components/NewTransModal';
+import {  TransProvider } from './TransContext';
 
 Modal.setAppElement('#root')
 
 export function App() {
   const [isNewTransModalOpen,setIsNewTransModalOpen] = useState(false);
+  
 
   function handleOpenNewTransModal (){
       setIsNewTransModalOpen(true);
@@ -20,12 +22,12 @@ export function App() {
   }
 
   return (
-    <>
+    <TransProvider>
     <Header onOpenNewTrans={handleOpenNewTransModal}/>
     <Dashboard/>
    <NewTransModal isOpenModal={isNewTransModalOpen} handleCloseModal={handleCloseNewTransModal}/>
     <Global/>
-    </>
+    </TransProvider>
   );
 }
 

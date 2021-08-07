@@ -2,7 +2,14 @@ import { Container } from "./styles";
 import EntradasImg from '../../assets/entradas.svg'
 import SaidaImg from '../../assets/saida.svg'
 import TotalImg from '../../assets/total.svg'
+import { TransContext } from "../../TransContext";
+import { useContext } from "react";
+
 export function Summary(){
+     
+     const {trans} = useContext(TransContext)
+
+
     return(
         <Container>
             <div>
